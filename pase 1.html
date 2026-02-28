@@ -2,6 +2,12 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+
+  <meta property="og:title" content="Invitaciones LuzNet">
+  <meta property="og:description" content="Invitacion digital web.">
+  <meta property="og:image" content="https://i.ibb.co/mFD8qrKb/portada-Luznet.jpg">
+  <meta property="og:url" content="https://felipe021284.github.io/INVITACI-N-DIGITAL/">
+
   <title>INVITACION DIGITAL</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -722,7 +728,8 @@ De las distintas actividades del evento"></p>
       </div>
       <div class="hijo hijo5">
   <h1 class="zoom">Qr pase de entrada</h1>
-  <img class="zoom" src="https://i.ibb.co/93pkFTj3/pase-1.png" alt="pase-1">
+  <img class="zoom" src="https://i.ibb.co/B27gqqcW/qr-generico.jpg
+  " alt="pase-1">
   <p class="zoom">Por favor confirma tu asistencia <br /> antes de la fecha.</p>
   <div class="gps zoom">
     <a href="https://wa.me/523312281872?text=Hola,%20confirmo%20mi%20asistencia%20al%20evento." class="btn">Confirmar</a>
@@ -732,8 +739,15 @@ De las distintas actividades del evento"></p>
        <div class="hijo hijo7" id="hijo7">
   <h1 id="matrix-h1" data-text="Gracias por asistir"></h1>
 
-<p id="matrix-p1" data-text="          agradezco tu presencia                      en este evento             tan solemne."></p><hr><br /><br /><br /><br /><br />
-<p id="matrix-p2" data-text="         ✨Invitaciones LuzNet✨         ✨agradece tu preferencia✨"></p>
+<p id="matrix-p1" data-text="agradezco tu presencia.">
+
+<p id="matrix-p3" data-text="en este evento tan solemne.">
+    
+    
+</p><hr><br /><br /><br /><br /><br />
+<p id="matrix-p2" data-text="✨Invitaciones LuzNet✨"></p>
+
+<p id="matrix-p4" data-text="✨agradece tu preferencia✨"></p>
   
   <div class="footer-img">
   <!--p>Invitaciones LuzNet agradece tu preferencia.</p-->
@@ -1046,6 +1060,8 @@ const observer7 = new IntersectionObserver((entries) => {
       prepararMatrixTexto('matrix-h1');
       prepararMatrixTexto('matrix-p1');
       prepararMatrixTexto('matrix-p2');
+      prepararMatrixTexto('matrix-p3');
+      prepararMatrixTexto('matrix-p4');
 
       // activar zoom en la imagen
       const zoomElements = hijo7.querySelectorAll('.zoom-img');
