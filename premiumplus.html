@@ -2,6 +2,12 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+
+  <meta property="og:title" content="Invitaciones LuzNet">
+  <meta property="og:description" content="Invitacion digital web.">
+  <meta property="og:image" content="https://i.ibb.co/mFD8qrKb/portada-Luznet.jpg">
+  <meta property="og:url" content="https://felipe021284.github.io/INVITACI-N-DIGITAL/">
+
   <title>INVITACION DIGITAL</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -398,10 +404,10 @@ width: 223px;
 /*
 
 efecto girar cuando se active el hijo4 */
-/*.hijo4.activo .slider {
+.hijo4.activo .slider {
   animation: girar 5s ease-out forwards;
 }
-*/
+
 
 .indicator {
   display: flex;
@@ -551,23 +557,25 @@ hr {
 /*  margin: 10px auto;*/
   width: 100%;
 }
-
+/*
 .hijo7 p .space {
   display: inline-block;
   width: 0.6em;
 }
-
+*/
+/*
 .hijo7 p span {
-  display: inline; /* importante para que text-align funcione */
+  display: inline;*/ /* importante para que text-align funcione 
 }
-
+*/
+/*
 .hijo7 p span.on {
   animation: matrixFade 0.5s forwards;
-}
-
+}*/
+/*
 .hijo7 p span.colorCycle {
   animation: animationcolor 6s infinite ease-in-out;
-}
+}*/
 
 /* ====== Animación olas de playa (ciclo dorado ↔ blanco) ====== */
 @keyframes animationcolor {
@@ -597,10 +605,25 @@ hr {
   animation: zoomInImg 2s forwards ease-out;
 }
 
-.zoom-p{
-    
+
+
+/*
+#matrix-h1 span,
+.hijo7 p span{
+  display: inline-block;
+  animation: animationcolor 6s infinite ease-in-out;
+}*/
+/* H1: efecto olas infinito */
+#matrix-h1 span {
+  display: inline-block;
+  animation: animationcolor 6s infinite ease-in-out;
 }
 
+/* Párrafos: efecto olas que se ejecuta una sola vez */
+.hijo7 p span {
+  display: inline-block;
+  animation: animationcolor 6s ease-in-out forwards; /* sin infinite */
+}
   </style>
 
   
@@ -705,7 +728,8 @@ De las distintas actividades del evento"></p>
       </div>
       <div class="hijo hijo5">
   <h1 class="zoom">Qr pase de entrada</h1>
-  <img class="zoom" src="https://i.ibb.co/93pkFTj3/pase-1.png" alt="pase-1">
+  <img class="zoom" src="https://i.ibb.co/B27gqqcW/qr-generico.jpg
+  " alt="pase-1">
   <p class="zoom">Por favor confirma tu asistencia <br /> antes de la fecha.</p>
   <div class="gps zoom">
     <a href="https://wa.me/523312281872?text=Hola,%20confirmo%20mi%20asistencia%20al%20evento." class="btn">Confirmar</a>
@@ -714,14 +738,19 @@ De las distintas actividades del evento"></p>
       
        <div class="hijo hijo7" id="hijo7">
   <h1 id="matrix-h1" data-text="Gracias por asistir"></h1>
-  <p></n></n></n></n></n>
-  agradezco tu presencia <br> en este evento tan solemne.</p>
-  <hr>
+
+<p id="matrix-p1" data-text="agradezco tu presencia.">
+
+<p id="matrix-p3" data-text="en este evento tan solemne.">
+    
+    
+</p><hr><br /><br /><br /><br /><br />
+<p id="matrix-p2" data-text="✨Invitaciones LuzNet✨"></p>
+
+<p id="matrix-p4" data-text="✨agradece tu preferencia✨"></p>
+  
   <div class="footer-img">
-  <p> <br /><br /><br /><br /><br />
-   <br /><br /><br /><br />
-   Invitaciones LuzNet <br />
-  agradece tu preferencia.</p>
+  <!--p>Invitaciones LuzNet agradece tu preferencia.</p-->
   <img class="zoom-img" src="https://i.ibb.co/7tCWCQ6x/image-1771479727259.jpg" alt="Logo LuzNet">
   </div>
   
@@ -826,6 +855,7 @@ hijos.forEach(hijo => observer.observe(hijo));
     
     //barra
     
+    
 
 
 
@@ -833,34 +863,79 @@ hijos.forEach(hijo => observer.observe(hijo));
 // Función para preparar el efecto Matrix
 
 
+// Observer para hijo4
+const hijo4 = document.querySelector('.hijo4');
+const observer4 = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      prepararMatrixTextoDiv4('matrix-text'); // activa efecto Matrix en el título
+      iniciarSliderDiv4(); // activa slider
+    }
+  });
+}, { threshold: 0.5 });
+
+if (hijo4) observer4.observe(hijo4);
 
 
-// Función para preparar el efecto Matrix
-function prepararMatrixTexto() {
-  const p = document.getElementById('matrix-text');
-  if (!p) return;
+// Función Matrix exclusiva para div4
+function prepararMatrixTextoDiv4(elementId) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
 
-  // 🔄 Usar siempre el texto original desde data-text
-  const texto = p.getAttribute('data-text');
-  p.textContent = ''; // limpiar contenido
+  const texto = el.getAttribute('data-text');
+  el.textContent = '';
 
-  const indices = [...texto.split('').keys()];
-  for (let i = indices.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [indices[i], indices[j]] = [indices[j], indices[i]];
-  }
-
-  texto.split('').forEach((letra, i) => {
+  [...texto].forEach((letra, i) => {
     const span = document.createElement('span');
     if (letra === ' ') {
       span.className = 'space';
+      span.innerHTML = '&nbsp;';
     } else {
       span.textContent = letra;
-      const delay = indices[i] * 0.2;
-      span.style.animationDelay = delay + 's';
+      span.style.animationDelay = (i * 0.2) + 's';
+      span.style.animationName = 'matrixFall'; // 👈 usa tu animación Matrix
     }
-    p.appendChild(span);
+    el.appendChild(span);
   });
+}
+
+
+// Slider exclusivo para div4
+function iniciarSliderDiv4() {
+  const slides = hijo4.querySelector('.slides');
+  const dots = hijo4.querySelectorAll('.dot');
+  let index = 0;
+  let startX = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  const total = dots.length;
+
+  function updateIndicator() {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  slides.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  });
+
+  slides.addEventListener('touchend', e => {
+    const endX = e.changedTouches[0].clientX;
+    const diff = endX - startX;
+
+    if (diff < -50 && index < total - 1) index++;
+    if (diff > 50 && index > 0) index--;
+
+    currentTranslate = -index * slides.clientWidth;
+    slides.style.transform = `translateX(${currentTranslate}px)`;
+    prevTranslate = currentTranslate;
+
+    updateIndicator();
+  });
+
+  // Inicializar
+  updateIndicator();
 }
 
 // Observer para hijo5
@@ -941,15 +1016,17 @@ function prepararLucesNavidad(divId) {
   }, 50); // velocidad de encendido
 }
 
-
-
 // Observer para hijo7
 const hijo7 = document.getElementById('hijo7');
 const observer7 = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      prepararMatrixH1();             // efecto Matrix en el h1
-      prepararLucesParrafos('hijo7'); // efecto olas en los párrafos
+      // Procesar h1 y párrafos con data-text
+      prepararMatrixTexto('matrix-h1');
+      prepararMatrixTexto('matrix-p1');
+      prepararMatrixTexto('matrix-p2');
+      prepararMatrixTexto('matrix-p3');
+      prepararMatrixTexto('matrix-p4');
 
       // activar zoom en la imagen
       const zoomElements = hijo7.querySelectorAll('.zoom-img');
@@ -965,13 +1042,13 @@ const observer7 = new IntersectionObserver((entries) => {
 if (hijo7) observer7.observe(hijo7);
 
 
-// Función Matrix para h1 con ciclo de color
-function prepararMatrixH1() {
-  const h1 = document.getElementById('matrix-h1');
-  if (!h1) return;
+// Función general para h1 y p con data-text
+function prepararMatrixTexto(elementId) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
 
-  const texto = h1.getAttribute('data-text');
-  h1.textContent = '';
+  const texto = el.getAttribute('data-text');
+  el.textContent = '';
 
   [...texto].forEach((letra, i) => {
     const span = document.createElement('span');
@@ -983,63 +1060,23 @@ function prepararMatrixH1() {
       span.style.animationDelay = (i * 0.2) + 's';
       span.style.animationName = 'matrixFade';
     }
-    h1.appendChild(span);
+    el.appendChild(span);
   });
 
-  // activar ciclo de color después de que termine el efecto Matrix
-  const spans = h1.querySelectorAll('span');
+  // activar ciclo olas después de Matrix
+  const spans = el.querySelectorAll('span');
   const tiempoTotal = texto.length * 200;
+
+  // Inicia el efecto olas
   setTimeout(() => {
     spans.forEach(span => span.classList.add('colorCycle'));
   }, tiempoTotal);
+
+  // Termina el efecto olas después de cierto tiempo (ej. 10s)
+  setTimeout(() => {
+    spans.forEach(span => span.classList.remove('colorCycle'));
+  }, tiempoTotal + 10000); // 10 segundos de olas
 }
-
-
-// Función para encender letras de los párrafos con efecto olas y respetar <br>
-function prepararLucesParrafos(divId) {
-  const cont = document.getElementById(divId);
-  if (!cont) return;
-
-  const elementos = cont.querySelectorAll('p');
-  elementos.forEach(el => {
-    const texto = el.innerHTML; // usar innerHTML para conservar <br>
-    el.textContent = '';
-
-    // recorrer carácter por carácter
-    for (let i = 0; i < texto.length; i++) {
-      if (texto.slice(i, i+4) === '<br>') {
-        el.appendChild(document.createElement('br'));
-        i += 3; // saltar etiqueta
-      } else if (texto[i] === ' ') {
-        const span = document.createElement('span');
-        span.className = 'space';
-        span.innerHTML = '&nbsp;';
-        el.appendChild(span);
-      } else {
-        const span = document.createElement('span');
-        span.textContent = texto[i];
-        el.appendChild(span);
-      }
-    }
-  });
-
-  const spans = Array.from(cont.querySelectorAll('p span'));
-  let pendientes = spans.map((_, i) => i);
-
-  const interval = setInterval(() => {
-    if (pendientes.length === 0) {
-      clearInterval(interval);
-      // aquí entra el ciclo de olas
-      spans.forEach(span => span.classList.add('colorCycle'));
-      return;
-    }
-    const randIndex = Math.floor(Math.random() * pendientes.length);
-    const idx = pendientes[randIndex];
-    spans[idx].classList.add('on');
-    pendientes.splice(randIndex, 1);
-  }, 80);
-}
-
 
 // ================== CARRUSEL INFINITO ==================
 const slides = document.querySelector('.slides');
@@ -1075,6 +1112,7 @@ setInterval(nextSlide, 3000);
 
 // Inicializa
 showSlide(index);
+
 
   </script>
 </body>
