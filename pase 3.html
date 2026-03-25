@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!-- =========================================
+   Propiedad de LuzNet ©
+   Creado por Felipe Jiménez
+   Así de fácil, así de impresionante, así     es LuzNet
+   ========================================= -->
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -624,6 +629,35 @@ hr {
   display: inline-block;
   animation: animationcolor 6s ease-in-out forwards; /* sin infinite */
 }
+
+/*div8*/
+
+
+.hijo8 {
+  
+}
+
+/* Capa de píxeles encima */
+.overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  z-index: 10;
+}
+
+.pixel {
+  background: black; /* dorado ceremonial */
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  aspect-ratio: 1 / 1;
+}
+
+.pixel.hide {
+  opacity: 0;
+}
   </style>
 
   
@@ -656,6 +690,7 @@ hr {
     </div>
 
     <div class="hijo hijo2">
+    <h1>Informacion del evento</h1>
       <p>En este apartado va información <br>
         sobre lugar, fecha y hora del evento <br>
         como también un contador regresivo</p>
@@ -726,14 +761,20 @@ De las distintas actividades del evento"></p>
 </div>
       
       </div>
+      
+       <div class="hijo hijo8" id="hijo8">
+  <h2>Confirmacion de asistencia</h2>
+  <iframe  src="https://docs.google.com/forms/d/e/1FAIpQLSc6GbUSxu8mot_eFIcBaNQuCxNwEvqiJHvesoOkom3RtBm__g/viewform?usp=publish-editor"
+          width="285" height="450"
+          frameborder="0" marginheight="0" marginwidth="0">
+    Cargando…
+  </iframe>
+</div>
       <div class="hijo hijo5">
   <h1 class="zoom">Qr pase de entrada</h1>
   <img class="zoom" src="https://i.ibb.co/FqLsSvSd/qr-generico-3.jpg
   " alt="pase-3">
-  <p class="zoom">Por favor confirma tu asistencia <br /> antes de la fecha.</p>
-  <div class="gps zoom">
-    <a href="https://wa.me/523312281872?text=Hola,%20confirmo%20mi%20asistencia%20al%20evento." class="btn">Confirmar</a>
-  </div>
+  
 </div>
       
        <div class="hijo hijo7" id="hijo7">
@@ -1112,6 +1153,45 @@ function prepararMatrixTexto(elementId) {
     spans.forEach(span => span.classList.remove('colorCycle'));
   }, tiempoTotal + 10000); // 10 segundos de olas
 }
+
+//div 8
+
+// Observer para hijo8
+const observerHijo8 = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Crear capa de píxeles encima
+      const overlay = document.createElement("div");
+      overlay.classList.add("overlay");
+      entry.target.appendChild(overlay);
+
+      // Generar 50 píxeles
+      for (let i = 0; i < 200; i++) {
+        const div = document.createElement("div");
+        div.classList.add("pixel");
+        overlay.appendChild(div);
+      }
+
+      // Animar desaparición aleatoria (revelando el contenido)
+      const pixels = overlay.querySelectorAll(".pixel");
+      pixels.forEach(pixel => {
+        const delay = Math.random() * 2000; // entre 0 y 2 segundos
+        setTimeout(() => {
+          pixel.classList.add("hide");
+        }, delay);
+      });
+
+      // Al final, quitar la capa para liberar el contenido
+      setTimeout(() => {
+        overlay.remove();
+      }, 2500);
+    }
+  });
+});
+
+// Observar el div hijo8
+const hijo8 = document.getElementById("hijo8");
+observerHijo8.observe(hijo8);
 
   </script>
 </body>
